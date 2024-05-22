@@ -6,6 +6,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import provider from './admin/auth-provider.js';
 import options from './admin/options.js';
+import {PrismaService} from "./database/prisma.service";
 
 @Module({
   imports: [
