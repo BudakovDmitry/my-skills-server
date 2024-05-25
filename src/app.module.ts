@@ -6,7 +6,9 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import provider from './admin/auth-provider.js';
 import options from './admin/options.js';
-import {PrismaService} from "./database/prisma.service";
+import {PrismaService} from "./prisma.service.js";
+import { AuthModule } from './auth/auth.module.js';
+import { UserModule } from './user/user.module.js';
 
 @Module({
   imports: [
@@ -30,8 +32,10 @@ import {PrismaService} from "./database/prisma.service";
         };
       },
     }),
+    AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}

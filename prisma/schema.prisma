@@ -13,8 +13,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model MenuItem {
-  id      Int      @id @default(autoincrement())
-  name    String   @unique
-  link    String
+model User {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  email       String       @unique
+  password    String
+  firstName   String       @map("first_name")
+  lastName    String       @map("last_name")
+  photo       String?
+  work        String?
+  location    String?
+  description String?
+  links       SocialLinks?
+  todos       Todo[]
+
+  @@map("user")
+}
+
+model Todo {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name        String
+  description String?
+  status      Boolean? @default(false)
+  sticker     String?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
+
+  @@map("todo")
+}
+
+model SocialLinks {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  instagram String?
+  facebook  String?
+  github    String?
+  linkedIn  String?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique @map("user_id")
+
+  @@map("social_links")
 }
