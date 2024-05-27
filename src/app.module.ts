@@ -9,6 +9,7 @@ import options from './admin/options.js';
 import {PrismaService} from "./prisma.service.js";
 import { AuthModule } from './auth/auth.module.js';
 import { UserModule } from './user/user.module.js';
+import { TodoModule } from './todo/todo.module.js';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { UserModule } from './user/user.module.js';
     }),
     AuthModule,
     UserModule,
+    TodoModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

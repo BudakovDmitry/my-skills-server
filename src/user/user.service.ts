@@ -28,7 +28,8 @@ export class UserService {
         id
       },
       include: {
-        todos: true
+        todos: true,
+        links: true
       }
     });
   }
