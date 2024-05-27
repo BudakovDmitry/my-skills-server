@@ -42,10 +42,38 @@ export class UserService {
   }
 
   async update(id: string, dto: UserDto) {
-    let data = dto
+    let data: any = { ...dto };
 
     if (dto.password) {
       data = { ...dto, password: await hash(dto.password)}
+    }
+
+    if (dto.links) {
+      const existingSocialLinks = await this.prisma.socialLinks.findUnique({
+        where: {
+          userId: id,
+        },
+      });
+  
+      if (existingSocialLinks) {
+        data.links = {
+          update: {
+            instagram: dto.links.instagram,
+            facebook: dto.links.facebook,
+            github: dto.links.github,
+            linkedIn: dto.links.linkedIn,
+          }
+        };
+      } else {
+        data.links = {
+          create: {
+            instagram: dto.links.instagram,
+            facebook: dto.links.facebook,
+            github: dto.links.github,
+            linkedIn: dto.links.linkedIn,
+          }
+        };
+      }
     }
 
     return this.prisma.user.update({
@@ -60,6 +88,4 @@ export class UserService {
       }
     })
   }
-
-
 }

@@ -1,5 +1,23 @@
 import { IsEmail, IsOptional, IsString, MinLength } from "class-validator"
 
+export class UserLinksDto {
+  @IsOptional()
+  @IsString()
+  instagram?: string;
+
+  @IsOptional()
+  @IsString()
+  facebook?: string;
+
+  @IsOptional()
+  @IsString()
+  github?: string;
+
+  @IsOptional()
+  @IsString()
+  linkedIn?: string;
+}
+
 export class UserDto {
   @IsOptional()
   @IsEmail()
@@ -35,7 +53,10 @@ export class UserDto {
   @IsOptional()
   @IsString()
   description?: string
-  
+
+  @IsOptional()
+  links?: UserLinksDto
+
   @IsOptional()
   todos?: object 
 }
