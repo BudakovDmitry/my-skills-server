@@ -14,6 +14,12 @@ export class UserController {
     return this.userService.getById(id)
   }
 
+  @HttpCode(200)
+  @Get('all')
+  getAll() {
+    return this.userService.getAll()
+  }
+
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Put()

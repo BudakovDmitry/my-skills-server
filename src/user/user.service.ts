@@ -42,6 +42,14 @@ export class UserService {
     });
   }
 
+  async getAll() {
+    return this.prisma.user.findMany({
+      include: {
+        links: true
+      }
+    })
+  }
+
   async update(id: string, dto: UserDto) {
     let data: any = { ...dto };
 
