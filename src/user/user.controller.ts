@@ -10,7 +10,13 @@ export class UserController {
 
   @Get()
   @Auth()
-  async getUserById(@CurrentUser('id') id: string) {
+  async getCurrentUserById(@CurrentUser('id') id: string) {
+    return this.userService.getById(id)
+  }
+  
+  @HttpCode(200)
+  @Get(':id')
+  async getUserById(id: string) {
     return this.userService.getById(id)
   }
 
