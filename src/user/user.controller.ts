@@ -15,8 +15,8 @@ export class UserController {
   }
   
   @HttpCode(200)
-  @Get(':id')
-  async getUserById(id: string) {
+  @Get('all/:id')
+  async getUserById(@Param('id') id: string) {
     return this.userService.getById(id)
   }
 
