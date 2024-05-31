@@ -10,6 +10,11 @@ import {PrismaService} from "./prisma.service.js";
 import { AuthModule } from './auth/auth.module.js';
 import { UserModule } from './user/user.module.js';
 import { TodoModule } from './todo/todo.module.js';
+import { Database, Resource } from '@adminjs/prisma'
+import { PageModule } from './page/page.module.js';
+import AdminJS from 'adminjs';
+
+AdminJS.registerAdapter({ Database, Resource })
 
 @Module({
   imports: [
@@ -36,6 +41,7 @@ import { TodoModule } from './todo/todo.module.js';
     AuthModule,
     UserModule,
     TodoModule,
+    PageModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

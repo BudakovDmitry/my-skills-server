@@ -63,3 +63,14 @@ model SocialLinks {
 
   @@map("social_links")
 }
+
+model Page {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name    String @unique
+  content String @db.Text
+
+  @@map("page")
+}
