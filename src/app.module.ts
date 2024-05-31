@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module.js';
 import { TodoModule } from './todo/todo.module.js';
 import { Database, Resource } from '@adminjs/prisma'
 import { PageModule } from './page/page.module.js';
+import { PageLinkModule } from './page-link/page-link.module.js';
 import AdminJS from 'adminjs';
 
 AdminJS.registerAdapter({ Database, Resource })
@@ -42,6 +43,7 @@ AdminJS.registerAdapter({ Database, Resource })
     UserModule,
     TodoModule,
     PageModule,
+    PageLinkModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

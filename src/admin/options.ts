@@ -21,7 +21,12 @@ const options: AdminJSOptions = {
         }
       }
     }
-  }],
+  },
+  {
+    resource: { model: getModelByName('PageLink'), client: prisma },
+    options: {},
+  },
+  ],
   databases: [],
 };
 
