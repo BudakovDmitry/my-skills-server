@@ -12,19 +12,32 @@ export class PageLinkService {
     })
   }
 
-  // findAll() {
-  //   return `This action returns all pageLink`;
-  // }
+  getAll() {
+    return this.prisma.pageLink.findMany();
+  }
 
-  // findOne(id: string) {
-  //   return `This action returns a #${id} pageLink`;
-  // }
+  getOne(id: string) {
+    return this.prisma.pageLink.findUnique({
+      where: {
+        id
+      }
+    });
+  }
 
-  // update(id: string, updatePageLinkDto) {
-  //   return `This action updates a #${id} pageLink`;
-  // }
+  update(id: string, dto: PageLinkDto) {
+    return this.prisma.pageLink.update({
+      where: {
+        id
+      }, 
+      data: dto
+    });
+  }
 
-  // remove(id: string) {
-  //   return `This action removes a #${id} pageLink`;
-  // }
+  remove(id: string) {
+    return this.prisma.pageLink.delete({
+      where: {
+        id
+      }
+    });
+  }
 }

@@ -1,4 +1,4 @@
-import { IsString } from "class-validator"
+import { IsNumber, IsString, IsBoolean } from "class-validator"
 
 export class PageLinkDto {
   @IsString()
@@ -6,4 +6,10 @@ export class PageLinkDto {
 
   @IsString()
   link: string
+
+  @IsNumber()
+  order: number
+
+  @IsBoolean()
+  isButton: boolean
 }

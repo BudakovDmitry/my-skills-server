@@ -80,8 +80,10 @@ model PageLink {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  name String @unique
-  link String
+  name     String  @unique
+  link     String
+  order    Int     @unique
+  isButton Boolean @default(false) @map("is_button")
 
   @@map("page_link")
 }
