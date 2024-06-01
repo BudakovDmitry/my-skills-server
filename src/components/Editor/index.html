@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TipTap Editor</title>
+    <!-- Підключення стилів для TipTap -->
+    <link href="https://cdn.jsdelivr.net/npm/@tiptap/core@1.34.0/dist/index.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Блок для відображення редактора -->
+    <div id="editor"></div>
+
+    <!-- Підключення скрипта TipTap -->
+    <script src="https://cdn.jsdelivr.net/npm/@tiptap/core@1.34.0/dist/index.umd.js"></script>
+
+    <script>
+        // Створення редактора TipTap
+        const editor = new window.Tiptap.Editor({
+            content: '<p>Hello World!</p>', // Початковий вміст редактора
+            extensions: [
+                // Додайте потрібні розширення TipTap
+                // Наприклад, StarterKit
+                window.StarterKit
+            ],
+            element: document.querySelector('#editor') // Елемент, у якому буде відображатися редактор
+        })
+    </script>
+</body>
+</html>

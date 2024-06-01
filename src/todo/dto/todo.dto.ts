@@ -1,21 +1,18 @@
-import { IsBoolean, IsOptional, IsString } from "class-validator";
+import { IsOptionalBooleanField, IsOptionalStringField, IsStringField } from "../../utils/decorators/dto.decorators.js";
 
 export class TodoDto {
-  @IsString()
+  @IsStringField('Name Todo')
   name: string
 
-  @IsOptional()
-  @IsBoolean()
+  @IsOptionalBooleanField('Status Todo')
   status?: boolean
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('Description todo')
   description?: string
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('Sticker todo')
   sticker?: string
 
-  @IsString()
+  @IsStringField('User id')
   userId: string
 }

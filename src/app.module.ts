@@ -17,6 +17,7 @@ import AdminJS from 'adminjs';
 
 AdminJS.registerAdapter({ Database, Resource })
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({

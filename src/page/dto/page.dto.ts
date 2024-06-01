@@ -1,9 +1,9 @@
-import { IsString } from "class-validator"
+import { IsStringField } from "../../utils/decorators/dto.decorators.js"
 
 export class PageDto {
-  @IsString()
-  title: string
+  @IsStringField('Name page')
+  name: string
 
-  @IsString()
+  @IsStringField('Content page')
   content: string
 }

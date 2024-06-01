@@ -1,15 +1,15 @@
-import { IsNumber, IsString, IsBoolean } from "class-validator"
+import { IsBooleanField, IsNumberField, IsStringField } from "../../utils/decorators/dto.decorators.js"
 
 export class PageLinkDto {
-  @IsString()
+  @IsStringField('Name page link')
   name: string
 
-  @IsString()
+  @IsStringField('Link page')
   link: string
 
-  @IsNumber()
+  @IsNumberField('Order page link')
   order: number
 
-  @IsBoolean()
+  @IsBooleanField('Is button link')
   isButton: boolean
 }

@@ -1,12 +1,9 @@
-import { IsEmail, IsString, MinLength } from "class-validator"
+import { IsEmailField, IsPasswordField } from "../../utils/decorators/dto.decorators.js"
 
 export class AuthDto {
-  @IsEmail()
+  @IsEmailField('Emal')
   email: string
 
-  @MinLength(6, {
-    message: 'Пароль повинен бути мінімум 6 символів'
-  })
-  @IsString()
+  @IsPasswordField('Password')
   password: string
 }

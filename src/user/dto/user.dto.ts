@@ -1,62 +1,47 @@
-import { IsEmail, IsOptional, IsString, MinLength } from "class-validator"
+import { IsOptionalEmailField, IsOptionalField, IsOptionalStringField, IsPasswordField } from "../../utils/decorators/dto.decorators.js";
 
 export class UserLinksDto {
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('Instagram URL')
   instagram?: string;
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('Facebook URL')
   facebook?: string;
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('GitHub URL')
   github?: string;
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('LinkedIn URL')
   linkedIn?: string;
 }
 
 export class UserDto {
-  @IsOptional()
-  @IsEmail()
+  @IsOptionalEmailField('Email')
   email?: string
 
-  @IsOptional()
-  @MinLength(6, {
-    message: 'Пароль повинен бути мінімум 6 символів'
-  })
-  @IsString()
+  @IsPasswordField('Password')
   password?: string
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('First name')
   firstName?: string
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('Last name')
   lastName?: string
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('Photo')
   photo?: string
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('Work')
   work?: string
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('Location')
   location?: string
 
-  @IsOptional()
-  @IsString()
+  @IsOptionalStringField('Description')
   description?: string
 
-  @IsOptional()
+  @IsOptionalField('User links')
   links?: UserLinksDto
 
-  @IsOptional()
+  @IsOptionalField('Todos')
   todos?: object 
 }
