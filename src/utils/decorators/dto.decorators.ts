@@ -61,12 +61,12 @@ export function IsOptionalEmailField(description: string) {
   );
 }
 
-export function IsPasswordField(description: string) {
+export function IsPasswordField(description: string, minLength: number, message: string) {
   return applyDecorators(
     IsString(),
-    MinLength(6, {
-      message: 'Пароль повинен бути мінімум 6 символів',
+    MinLength(minLength, {
+      message
     }),
-    ApiProperty({ description, minLength: 6 }),
+    ApiProperty({ description, minLength }),
   );
 }

@@ -18,7 +18,7 @@ export class UserDto {
   @IsOptionalEmailField('Email')
   email?: string
 
-  @IsPasswordField('Password')
+  @IsPasswordField('Password', 6, 'Пароль повинен бути мінімум 6 символів')
   password?: string
 
   @IsOptionalStringField('First name')

@@ -4,6 +4,6 @@ export class AuthDto {
   @IsEmailField('Emal')
   email: string
 
-  @IsPasswordField('Password')
+  @IsPasswordField('Password', 6, 'Пароль повинен бути мінімум 6 символів')
   password: string
 }
