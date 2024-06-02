@@ -25,6 +25,10 @@ AdminJS.registerAdapter({ Database, Resource })
     }),
     AdminModule.createAdminAsync({
       useFactory: async () => {
+        const adminjs = new AdminJS()
+        
+        adminjs.watch()
+
         return {
           adminJsOptions: options,
           auth: {
