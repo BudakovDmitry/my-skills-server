@@ -10,7 +10,14 @@ const options: AdminJSOptions = {
   rootPath: '/admin',
   resources: [{
     resource: { model: getModelByName('User'), client: prisma },
-    options: {},
+    options: {
+      properties: {
+        todos: {
+          type: 'array',
+          isVisible: { list: true, filter: true, show: true, edit: true },
+        },
+      },
+    },
   },
   {
     resource: { model: getModelByName('Page'), client: prisma },
@@ -25,6 +32,17 @@ const options: AdminJSOptions = {
   {
     resource: { model: getModelByName('PageLink'), client: prisma },
     options: {},
+  },
+  {
+    resource: { model: getModelByName('Todo'), client: prisma },
+    options: {
+      properties: {
+        userId: {
+          reference: 'User',
+          isVisible: { list: true, filter: true, show: true, edit: true },
+        },
+      },
+    },
   },
   ],
   databases: [],
