@@ -2,7 +2,6 @@ import { AdminJSOptions } from 'adminjs';
 import { componentLoader, Components } from './component-loader.js';
 import { getModelByName } from '@adminjs/prisma';
 import { PrismaService } from '../prisma.service.js';
-import Input from '../components/Input/Input.js'
 
 const prisma = new PrismaService()
 
@@ -25,10 +24,10 @@ const options: AdminJSOptions = {
     options: {
       properties: {
         content: {
-          type: 'string',
-          components: {
-            edit: Components.Editor, // this is our custom component
-          },
+          type: 'richtext',
+          // components: {
+          //   edit: Components.CKEditor, 
+          // },
         }
       }
     }

@@ -4,8 +4,7 @@ const componentLoader = new ComponentLoader()
 
 const Components = {
     Input: componentLoader.add('Input', '../components/Input/Input'),
-    Editor: componentLoader.add('Editor', '../components/Editor/Editor'),
-    // other custom components
+    CKEditor: componentLoader.add('CKEditor', '../components/CKEditor/CKEditor'),
 }
 
 export { componentLoader, Components }
