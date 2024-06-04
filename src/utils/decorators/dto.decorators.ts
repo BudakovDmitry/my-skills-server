@@ -70,3 +70,14 @@ export function IsPasswordField(description: string, minLength: number, message:
     ApiProperty({ description, minLength }),
   );
 }
+
+export function IsOptionalPasswordField(description: string, minLength: number, message: string) {
+  return applyDecorators(
+    IsOptional(),
+    IsString(),
+    MinLength(minLength, {
+      message
+    }),
+    ApiPropertyOptional({ description, minLength }),
+  );
+}

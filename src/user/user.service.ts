@@ -97,4 +97,15 @@ export class UserService {
       }
     })
   }
+
+  async updateProfilePictureUrl(userId: string, url: string) {
+    return this.prisma.user.update({
+      where: { 
+        id: userId 
+      },
+      data: { 
+        photo: url 
+      },
+    });
+  }
 }

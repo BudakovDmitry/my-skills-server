@@ -1,4 +1,4 @@
-import { IsOptionalEmailField, IsOptionalField, IsOptionalStringField, IsPasswordField } from "../../utils/decorators/dto.decorators.js";
+import { IsOptionalEmailField, IsOptionalField, IsOptionalStringField, IsOptionalPasswordField } from "../../utils/decorators/dto.decorators.js";
 
 export class UserLinksDto {
   @IsOptionalStringField('Instagram URL')
@@ -18,7 +18,7 @@ export class UserDto {
   @IsOptionalEmailField('Email')
   email?: string
 
-  @IsPasswordField('Password', 6, 'Пароль повинен бути мінімум 6 символів')
+  @IsOptionalPasswordField('Password', 6, 'Пароль повинен бути мінімум 6 символів')
   password?: string
 
   @IsOptionalStringField('First name')
@@ -45,3 +45,4 @@ export class UserDto {
   @IsOptionalField('Todos')
   todos?: object 
 }
+
