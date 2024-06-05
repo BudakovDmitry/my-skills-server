@@ -25,9 +25,6 @@ const options: AdminJSOptions = {
       properties: {
         content: {
           type: 'richtext',
-          // components: {
-          //   edit: Components.CKEditor, 
-          // },
         }
       }
     }
