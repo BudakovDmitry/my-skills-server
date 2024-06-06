@@ -1,0 +1,11 @@
+{
+  "build": {
+    "builder": "nixpacks"
+  },
+  "deploy": {
+    "postdeploy": [
+      "npx prisma migrate deploy",
+      "npx prisma generate"
+    ]
+  }
+}
