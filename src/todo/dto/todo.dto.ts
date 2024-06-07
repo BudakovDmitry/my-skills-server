@@ -15,4 +15,7 @@ export class TodoDto {
 
   @IsStringField('User id')
   userId: string
+
+  @IsOptionalStringField('Color todo')
+  color?: string
 }

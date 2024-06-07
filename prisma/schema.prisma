@@ -41,6 +41,7 @@ model Todo {
   description String?
   status      Boolean? @default(false)
   sticker     String?
+  color       String?  @default("#e2e8f0")
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @map("user_id")
