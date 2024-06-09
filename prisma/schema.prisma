@@ -18,16 +18,18 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  email       String       @unique
-  password    String
-  firstName   String       @map("first_name")
-  lastName    String       @map("last_name")
-  photo       String?
-  work        String?
-  location    String?
-  description String?
-  links       SocialLinks?
-  todos       Todo[]
+  email            String       @unique
+  password         String
+  firstName        String       @map("first_name")
+  lastName         String       @map("last_name")
+  photo            String?
+  work             String?
+  location         String?
+  description      String?
+  links            SocialLinks?
+  todos            Todo[]
+  commentsAuthored Comment[]    @relation(name: "CommentAuthor")
+  commentsReceived Comment[]    @relation(name: "CommentRecipient")
 
   @@map("user")
 }
@@ -47,6 +49,22 @@ model Todo {
   userId String @map("user_id")
 
   @@map("todo")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  text String
+
+  author   User   @relation(name: "CommentAuthor", fields: [authorId], references: [id])
+  authorId String @map("author_id")
+
+  recipient   User   @relation(name: "CommentRecipient", fields: [recipientId], references: [id])
+  recipientId String @map("recipient_id")
+
+  @@map("comment")
 }
 
 model SocialLinks {

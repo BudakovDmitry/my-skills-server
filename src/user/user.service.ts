@@ -29,7 +29,18 @@ export class UserService {
       },
       include: {
         todos: true,
-        links: true
+        links: true,
+        commentsReceived: {
+          include: {
+            author: {
+              select: {
+                firstName: true,
+                lastName: true,
+                photo: true,
+              },
+            },
+          },
+        },
       }
     });
   }
