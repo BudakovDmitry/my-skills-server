@@ -56,12 +56,22 @@ export class UserService {
     });
   }
 
-  async getAll() {
-    return this.prisma.user.findMany({
+  async getAll(pageNumber: number = 1, pageSize: number = 10) {
+    const skip = (pageNumber - 1) * pageSize;
+    const users = await this.prisma.user.findMany({
+      skip,
+      take: pageSize,
       include: {
         links: true
       }
-    })
+    });
+
+    const totalCount = await this.prisma.user.count();
+
+    return {
+      users: users,
+      totalPages: Math.ceil(totalCount / pageSize)
+    };
   }
 
   async update(id: string, dto: UserDto) {

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Param, ValidationPipe, HttpCode, UsePipes, UploadedFile, UseInterceptors, Res, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, ValidationPipe, HttpCode, UsePipes, UploadedFile, UseInterceptors, Res, Req, Query } from '@nestjs/common';
 import { UserService } from './user.service.js';
 import { CurrentUser } from '../auth/decorators/user.decorator.js';
 import { Auth } from '../auth/decorators/auth.decorator.js';
@@ -32,8 +32,8 @@ export class UserController {
 
   @HttpCode(200)
   @Get('all')
-  getAll() {
-    return this.userService.getAll()
+  getAll(@Query('pageNumber') pageNumber: string = '1', @Query('pageSize') pageSize: string = '10') {
+    return this.userService.getAll(parseInt(pageNumber), parseInt(pageSize))
   }
 
   @UsePipes(new ValidationPipe())
