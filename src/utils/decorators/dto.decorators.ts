@@ -1,6 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsBoolean, IsEmail, IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
+import { IsBoolean, IsEmail, IsNumber, IsOptional, IsString, MinLength, IsArray } from 'class-validator';
 
 export function IsStringField(description: string) {
   return applyDecorators(
@@ -79,5 +79,12 @@ export function IsOptionalPasswordField(description: string, minLength: number, 
       message
     }),
     ApiPropertyOptional({ description, minLength }),
+  );
+}
+
+export function IsArrayField(description: string) {
+  return applyDecorators(
+    IsArray(),
+    ApiProperty({ description }),
   );
 }

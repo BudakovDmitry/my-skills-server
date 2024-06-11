@@ -14,6 +14,7 @@ import { Database, Resource } from '@adminjs/prisma'
 import { PageModule } from './page/page.module.js';
 import { PageLinkModule } from './page-link/page-link.module.js';
 import { CommentModule } from './comment/comment.module.js';
+import { ChatModule } from './chat/chat.module.js';
 import AdminJS from 'adminjs';
 
 AdminJS.registerAdapter({ Database, Resource })
@@ -51,6 +52,7 @@ AdminJS.registerAdapter({ Database, Resource })
     PageModule,
     PageLinkModule,
     CommentModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
