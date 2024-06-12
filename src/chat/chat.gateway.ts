@@ -3,16 +3,28 @@ import { Server } from 'socket.io';
 import { ChatService } from './chat.service.js';
 import { MessageDto } from './dto/message.dto.js';
 
-@WebSocketGateway({ cors: true })
+@WebSocketGateway({
+  cors: {
+    origin: ['http://localhost:3000'],
+    credentials: true,
+  },
+})
 export class ChatGateway {
   @WebSocketServer()
   server: Server;
 
   constructor(private readonly chatService: ChatService) {}
 
-  @SubscribeMessage('message')
-  async handleMessage(@MessageBody() createMessageDto: MessageDto): Promise<void> {
-    const message = await this.chatService.createMessage(createMessageDto);
-    this.server.emit('message', message);
+  @SubscribeMessage('createMessage')
+  async handleMessage(@MessageBody() createMessageDto: MessageDto) {
+    try {
+      const message = await this.chatService.createMessage(createMessageDto);
+      this.server.emit('messageCreated', message);
+
+      return { success: true, message };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+
   }
 }

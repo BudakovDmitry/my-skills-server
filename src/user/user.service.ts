@@ -30,6 +30,7 @@ export class UserService {
       include: {
         todos: true,
         links: true,
+        chats: true,
         commentsReceived: {
           include: {
             author: {

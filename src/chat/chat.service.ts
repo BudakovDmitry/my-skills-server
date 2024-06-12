@@ -45,7 +45,13 @@ export class ChatService {
         },
       },
       include: { 
-        user: true, 
+        user: {
+          select: {
+            firstName: true,
+            lastName: true,
+            photo: true,
+          },
+        },
         chat: true 
       },
     });
@@ -58,8 +64,58 @@ export class ChatService {
       },
       include: {
         users: true,
-        messages: true,
+        messages: {
+          orderBy: {
+            createdAt: 'asc',
+          },
+          include: {
+            user: {
+              select: {
+                firstName: true,
+                lastName: true,
+                photo: true,
+              },
+            },
+          },
+        },
       },
     });
+  }
+
+  async getAllChatsByUserId(userId: string) {
+    const userChats = await this.prisma.userChat.findMany({
+      where: {
+        userId,
+      },
+      include: {
+        chat: {
+          include: {
+            messages: true,
+            users: {
+              include: {
+                user: {
+                  select: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    photo: true,
+                  },
+                }
+              },
+            },
+          },
+        },
+      },
+    });
+  
+    const filteredChats = userChats.map(chatRelation => {
+      const chat = chatRelation.chat;
+      chat.users = chat.users.filter(
+        userRelation => userRelation.userId !== userId
+      ).slice(0, 1);
+      return chat;
+    });
+  
+    return filteredChats;
   }
 }

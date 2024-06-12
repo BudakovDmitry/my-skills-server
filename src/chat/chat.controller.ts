@@ -14,7 +14,7 @@ export class ChatController {
   }
 
   @HttpCode(200)
-  @Post()
+  @Post('message')
   createMessage(@Body() dto: MessageDto) {
     return this.chatService.createMessage(dto);
   }
@@ -23,5 +23,11 @@ export class ChatController {
   @Get(':id')
   async getChatById(@Param('id') chatId: string) {
     return this.chatService.getChatById(chatId);
+  }
+
+  @HttpCode(200)
+  @Get('all/:id')
+  async getAllChatsByUserId(@Param('id') userId: string) {
+    return this.chatService.getAllChatsByUserId(userId)
   }
 }
