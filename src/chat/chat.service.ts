@@ -8,6 +8,25 @@ export class ChatService {
   constructor(private prisma: PrismaService) {}
   
   async createChat(dto: ChatDto) {
+    const existingChat = await this.prisma.chat.findFirst({
+      where: {
+        users: {
+          every: {
+            userId: { in: dto.users },
+          },
+        },
+      },
+      include: {
+        users: true,
+        messages: true,
+      },
+    });
+  
+
+    if (existingChat) {
+      return existingChat;
+    }
+
     return this.prisma.chat.create({
       data: {
         users: {
