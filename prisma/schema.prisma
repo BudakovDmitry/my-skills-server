@@ -32,6 +32,8 @@ model User {
   commentsReceived Comment[]    @relation(name: "CommentRecipient")
   chats            UserChat[]
   messages         Message[]
+  role             Role         @relation(fields: [roleId], references: [id])
+  roleId           String       @map("role_id")
 
   @@map("user")
 }
@@ -143,4 +145,30 @@ model Message {
   chatId String @map("chat_id")
 
   @@map("message")
+}
+
+model Role {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name        String       @unique
+  permissions Permission[]
+  user        User[]
+
+  @@map("role")
+}
+
+model Permission {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name  String
+  value Boolean
+
+  role   Role   @relation(fields: [roleId], references: [id])
+  roleId String @map("role_id")
+
+  @@map("permission")
 }

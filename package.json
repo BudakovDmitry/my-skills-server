@@ -1,7 +1,6 @@
 {
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "nest build",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -16,7 +15,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate": "npx prisma migrate deploy",
     "generate": "npx prisma generate",
-    "postinstall": "npm run migrate && npm run generate"
+    "postinstall": "npm run migrate && npm run generate",
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.0",
