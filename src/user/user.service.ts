@@ -9,11 +9,22 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: RegistrationDto) {
+    const defaultRole = await this.prisma.role.findUnique({
+      where: { name: 'USER' },
+    });
+
+    if (!defaultRole) {
+      throw new Error('Default role not found');
+    }
+
     const user = {
       email: dto.email,
       firstName: dto.firstName,
       lastName: dto.lastName,
-      password: await hash(dto.password)
+      password: await hash(dto.password),
+      role: {
+        connect: { id: defaultRole.id },
+      },
     }
 
     return this.prisma.user.create({
@@ -31,6 +42,16 @@ export class UserService {
         todos: true,
         links: true,
         chats: true,
+        role: {
+          include: {
+            permissions: {
+              select: {
+                name: true,
+                value: true
+              }
+            }
+          }
+        },
         commentsReceived: {
           include: {
             author: {
