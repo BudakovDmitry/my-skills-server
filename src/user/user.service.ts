@@ -13,6 +13,10 @@ export class UserService {
       where: { name: 'USER' },
     });
 
+    const defaultPlan = await this.prisma.plan.findUnique({
+      where: { name: 'BASIC' },
+    });
+
     if (!defaultRole) {
       throw new Error('Default role not found');
     }
@@ -24,6 +28,9 @@ export class UserService {
       password: await hash(dto.password),
       role: {
         connect: { id: defaultRole.id },
+      },
+      plan: {
+        connect: { id: defaultPlan.id },
       },
     }
 
@@ -42,7 +49,8 @@ export class UserService {
         todos: true,
         links: true,
         chats: true,
-        role: {
+        role: true,
+        plan: {
           include: {
             permissions: {
               select: {
@@ -139,9 +147,35 @@ export class UserService {
       select: {
         email: true,
         firstName: true,
-        lastName: true
+        lastName: true,
+        plan: true,
       }
     })
+  }
+
+  async updatePlan(userId: string, newPlanName: string) {
+    const newPlan = await this.prisma.plan.findUnique({
+      where: {
+        name: newPlanName,
+      },
+    });
+
+    if (!newPlan) {
+      throw new Error(`Plan with name ${newPlanName} not found`);
+    }
+
+    return this.prisma.user.update({
+      where: { 
+        id: userId 
+      },
+      data: { 
+        plan: {
+          connect: {
+            id: newPlan.id
+          }
+        }
+      },
+    });
   }
 
   async updateProfilePictureUrl(userId: string, url: string) {

@@ -44,5 +44,8 @@ export class UserDto {
 
   @IsOptionalField('Todos')
   todos?: object 
+
+  @IsOptionalStringField('Work')
+  plan?: string
 }
 

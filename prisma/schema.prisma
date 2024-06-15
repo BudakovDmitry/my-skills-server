@@ -34,6 +34,8 @@ model User {
   messages         Message[]
   role             Role         @relation(fields: [roleId], references: [id])
   roleId           String       @map("role_id")
+  plan             Plan         @relation(fields: [planId], references: [id])
+  planId           String       @map("plan_id")
 
   @@map("user")
 }
@@ -152,11 +154,22 @@ model Role {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  name String @unique
+  user User[]
+
+  @@map("role")
+}
+
+model Plan {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
   name        String       @unique
   permissions Permission[]
   user        User[]
 
-  @@map("role")
+  @@map("plan")
 }
 
 model Permission {
@@ -167,8 +180,8 @@ model Permission {
   name  String
   value Boolean
 
-  role   Role   @relation(fields: [roleId], references: [id])
-  roleId String @map("role_id")
+  plan   Plan   @relation(fields: [planId], references: [id])
+  planId String @map("plan_id")
 
   @@map("permission")
 }

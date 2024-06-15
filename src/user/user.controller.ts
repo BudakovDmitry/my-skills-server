@@ -44,6 +44,13 @@ export class UserController {
     return this.userService.update(id, dto)
   }
 
+  @HttpCode(200)
+  @Put('plan')
+  @Auth()
+  async updateUserPlan(@CurrentUser('id') id: string, @Body() dto: { newPlanName: string}) {
+    return this.userService.updatePlan(id, dto.newPlanName)
+  }
+
   @Post('upload/:id')
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({

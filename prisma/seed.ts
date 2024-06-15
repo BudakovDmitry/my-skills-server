@@ -7,17 +7,54 @@ async function main() {
     where: { name: 'USER' },
     update: {},
     create: {
-      name: 'USER',
-      permissions: {
-        create: [
-          { name: 'viewAllProfiles', value: true },
-          { name: 'sendMessage', value: false },
-          { name: 'customizationTodo', value: false },
-          { name: 'addPhoto', value: false },
-        ],
-      },
+      name: 'USER'
     },
   });
+
+  const plans = [
+    {
+      name: 'BASIC',
+      permissions: [
+        { name: 'viewAllProfiles', value: false },
+        { name: 'sendMessage', value: false },
+        { name: 'customizationTodo', value: false },
+        { name: 'addPhoto', value: false },
+      ],
+    },
+    {
+      name: 'PREMIUM',
+      permissions: [
+        { name: 'viewAllProfiles', value: true },
+        { name: 'sendMessage', value: false },
+        { name: 'customizationTodo', value: false },
+        { name: 'addPhoto', value: true },
+      ],
+    },
+    {
+      name: 'ULTIMATE',
+      permissions: [
+        { name: 'viewAllProfiles', value: true },
+        { name: 'sendMessage', value: true },
+        { name: 'customizationTodo', value: true },
+        { name: 'addPhoto', value: true },
+      ],
+    },
+  ];
+
+  for (const plan of plans) {
+    await prisma.plan.upsert({
+      where: { name: plan.name },
+      update: {},
+      create: {
+        name: plan.name,
+        permissions: {
+          create: plan.permissions,
+        },
+      },
+    });
+  }
+
+  console.log('Default plans created');
 }
 
 main()
