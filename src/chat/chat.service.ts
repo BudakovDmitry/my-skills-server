@@ -137,4 +137,21 @@ export class ChatService {
   
     return filteredChats;
   }
+
+  async markMessagesAsRead(userId: string, chatId: string) {
+    const messages = await this.prisma.message.updateMany({
+      where: {
+        chatId,
+        userId: {
+          not: userId,
+        },
+        read: false,
+      },
+      data: {
+        read: true,
+      },
+    });
+
+    return messages;
+  }
 }

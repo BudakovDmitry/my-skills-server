@@ -25,6 +25,15 @@ export class ChatGateway {
     } catch (error) {
       return { success: false, error: error.message };
     }
+  }
 
+  @SubscribeMessage('markChatAsRead')
+  async handleMarkChatAsRead(@MessageBody() { userId, chatId }: { userId: string; chatId: string }) {
+    try {
+      await this.chatService.markMessagesAsRead(userId, chatId);
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
   }
 }
