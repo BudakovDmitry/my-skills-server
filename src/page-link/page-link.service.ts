@@ -13,7 +13,11 @@ export class PageLinkService {
   }
 
   getAll() {
-    return this.prisma.pageLink.findMany();
+    return this.prisma.pageLink.findMany({
+      orderBy: {
+        order: 'asc'
+      }
+    });
   }
 
   getOne(id: string) {
