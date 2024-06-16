@@ -68,7 +68,7 @@ export class ChatService {
           select: {
             firstName: true,
             lastName: true,
-            photo: true,
+            photo: true
           },
         },
         chat: true 
@@ -93,6 +93,7 @@ export class ChatService {
                 firstName: true,
                 lastName: true,
                 photo: true,
+                plan: true
               },
             },
           },
@@ -118,6 +119,7 @@ export class ChatService {
                     firstName: true,
                     lastName: true,
                     photo: true,
+                    plan: true
                   },
                 }
               },

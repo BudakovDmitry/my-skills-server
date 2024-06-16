@@ -10,7 +10,6 @@ export class TodoController {
   @HttpCode(200)
   @Post()
   create(@Body() createTodoDto: TodoDto) {
-    console.log('createTodoDto', createTodoDto)
     return this.todoService.create(createTodoDto);
   }
 
