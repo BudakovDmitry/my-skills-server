@@ -15,6 +15,8 @@ import { PageModule } from './page/page.module.js';
 import { PageLinkModule } from './page-link/page-link.module.js';
 import { CommentModule } from './comment/comment.module.js';
 import { ChatModule } from './chat/chat.module.js';
+import { MailerModule } from './mailer/mailer.module.js';
+import { MailModule } from './mail/mail.module.js';
 import AdminJS from 'adminjs';
 
 AdminJS.registerAdapter({ Database, Resource })
@@ -53,6 +55,8 @@ AdminJS.registerAdapter({ Database, Resource })
     PageLinkModule,
     CommentModule,
     ChatModule,
+    MailerModule,
+    MailModule
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

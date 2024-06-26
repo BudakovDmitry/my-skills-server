@@ -2,11 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service.js';
 import { UserDto } from './dto/user.dto.js';
 import { hash } from 'argon2';
-import { RegistrationDto } from 'src/auth/dto/registration.dto.js';
+import { RegistrationDto } from '../auth/dto/registration.dto.js';
+import { MailService } from '../mail/mail.service.js';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private readonly mailService: MailService) {}
 
   async create(dto: RegistrationDto) {
     const defaultRole = await this.prisma.role.findUnique({
@@ -33,6 +34,8 @@ export class UserService {
         connect: { id: defaultPlan.id },
       },
     }
+
+    await this.mailService.sendWelcomeEmail(user.email);
 
     return this.prisma.user.create({
       data: user
@@ -154,6 +157,14 @@ export class UserService {
   }
 
   async updatePlan(userId: string, newPlanName: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new Error(`User with id ${userId} not found`);
+    }
+
     const newPlan = await this.prisma.plan.findUnique({
       where: {
         name: newPlanName,
@@ -163,6 +174,8 @@ export class UserService {
     if (!newPlan) {
       throw new Error(`Plan with name ${newPlanName} not found`);
     }
+
+    await this.mailService.sendNotificationEmail(user.email);
 
     return this.prisma.user.update({
       where: { 

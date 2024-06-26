@@ -44,6 +44,16 @@ const options: AdminJSOptions = {
       },
     },
   },
+  {
+    resource: { model: getModelByName('Mail'), client: prisma },
+    options: {
+      properties: {
+        content: {
+          type: 'richtext',
+        }
+      }
+    }
+  },
   ],
   databases: [],
 };
